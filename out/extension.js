@@ -111,7 +111,8 @@ function activate(context) {
                 createCompletionItem('@@CURRDATE', '当前日期 格式为yyyyMMdd'),
                 createCompletionItem('@@CURRDATETIMES', '当前时间日期 格式为yyyy-MM-dd HH:mm:ss'),
                 createCompletionItem('@@CURRDATES', '前日期 格式为yyyy-MM-dd'),
-                createCompletionItem('CHECK.>', ''),
+                createCompletionItem('CHECK.>', '检查'),
+                createCompletionItem('END', '结束语')
             ];
             return completions;
         }
