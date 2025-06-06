@@ -1,2 +1,9 @@
-# cos-language-support README
-COS代码语法提示插件及高亮显示
+# COS File VS Code插件
+这是一个Vs Code插件，可以实现COS文件的语法提示和代码高亮。
+
+## 1.语法提示功能
+输入前缀即可显示语法补全
+![项目截图](./photo/补全.png)
+## 2.代码高亮功能
+对已定义的语法进行代码高亮
+![项目截图](./photo/高亮.png)
