@@ -7,6 +7,15 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#commands"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
@@ -26,7 +35,31 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"commands": {
+			"patterns": [
+				{
+					"name": "support.function.cos",
+					"match": "\\b(APDU|RESET|DEF|SUB|CONNECT|EXTERNAL|APDUMAC|APDUKEYE|DESEN|DESDE|XOR|DIVK|MD5|SM4EN|SM4DE|SHA1|SQL_EXIST|SQL_NOEXIST|SQL_CHANGE|M1LOADKEY|M1AUTHEN|M1WRITE|M1READ)\\.>"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "variable.other.cos",
+					"match": "@@[A-Za-z0-9_]+"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.cos",
+					"match": "//.*$"
+				}
+			]
 		}
 	},
-	"scopeName": "e.g source.zhou"
+	"scopeName": "source.cos"
 }

@@ -7,7 +7,8 @@
     "vscode": "^1.100.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Themes"
   ],
   "contributes": {
     "languages": [{
@@ -18,7 +19,7 @@
     }],
     "grammars": [{
       "language": "cos",
-      "scopeName": "e.g source.zhou",
+      "scopeName": "source.cos",
       "path": "./syntaxes/cos.json"
     }],
     "snippets": [{
@@ -28,10 +29,15 @@
     "commands": [{
       "command": "cos.completion",
       "title": "COS Language Completion"
+    }],
+    "themes": [{
+      "label": "COS Theme",
+      "uiTheme": "vs-dark",
+      "path": "./themes/cos-theme.json"
     }]
   },
   "activationEvents": [
-    
+    "onLanguage:cos"
   ],
   "main": "./out/extension.js",
   "scripts": {

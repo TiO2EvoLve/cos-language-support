@@ -1,0 +1,34 @@
+{
+    "name": "COS Theme",
+    "type": "dark",
+    "colors": {
+        "editor.background": "#1E1E1E",
+        "editor.foreground": "#D4D4D4"
+    },
+    "tokenColors": [
+        {
+            "scope": "support.function.cos",
+            "settings": {
+                "foreground": "#569CD6"
+            }
+        },
+        {
+            "scope": "variable.other.cos",
+            "settings": {
+                "foreground": "#9CDCFE"
+            }
+        },
+        {
+            "scope": "string.quoted.double.cos",
+            "settings": {
+                "foreground": "#CE9178"
+            }
+        },
+        {
+            "scope": "comment.line.double-slash.cos",
+            "settings": {
+                "foreground": "#6A9955"
+            }
+        }
+    ]
+} 
