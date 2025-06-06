@@ -3,6 +3,10 @@
   "displayName": "cos-language-support",
   "description": "cos-language-support",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://codeup.aliyun.com/5eb4d1a13fd198000181af05/cos-language-support.git"
+  },
   "engines": {
     "vscode": "^1.100.0"
   },
