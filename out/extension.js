@@ -91,7 +91,6 @@ function activate(context) {
                 createCompletionItem('SUBMITNWECAPE.>', '提交洗卡记录'),
                 createCompletionItem('CREATPIN.>', '根据芯片号和NEW_ASN后16位，计算PIN'),
                 createCompletionItem('CREATWATER.>', '根据芯片号和NEW_ASN后16位，计算ENC'),
-                createCompletionItem('@@', '变量'),
                 createCompletionItem('@@SN', '卡号'),
                 createCompletionItem('@@UID', '16进制调整芯片号'),
                 createCompletionItem('@@BUID', '16进制不调整芯片号'),
@@ -117,38 +116,9 @@ function activate(context) {
             ];
             return completions;
         }
-    }, '.' // 命令触发字符
+    }, ':' // 命令触发字符
     );
-    // 变量补全提供者
-    const variableCompletionProvider = vscode.languages.registerCompletionItemProvider('cos', {
-        provideCompletionItems(document, position) {
-            const completions = [
-                createCompletionItem('@@SN', '卡号'),
-                createCompletionItem('@@UID', '16进制调整芯片号'),
-                createCompletionItem('@@BUID', '16进制不调整芯片号'),
-                createCompletionItem('@@DUID', '10进制调整芯片号'),
-                createCompletionItem('@@DBUID', '10进制不调整芯片号'),
-                createCompletionItem('@@ATS', 'CPU卡的复位信息'),
-                createCompletionItem('@@SLPRINT', '打码值'),
-                createCompletionItem('@@CITYCODE', '城市代码'),
-                createCompletionItem('@@VENDER', '订单号'),
-                createCompletionItem('@@CARDTYPE', '卡片类型'),
-                createCompletionItem('@@CARDLOGO', '卡片标志'),
-                createCompletionItem('@@SLNUM', '特殊算法号码'),
-                createCompletionItem('@@APDURT', '指令返回值'),
-                createCompletionItem('@@RZMA', '认证码'),
-                createCompletionItem('@@SMATS', 'SM卡复位信息'),
-                createCompletionItem('@@ERRUNLOCKPARAM', '解锁密钥'),
-                createCompletionItem('@@CURRDATETIME', '当前日期时间，格式为yyyyMMddHHmmss'),
-                createCompletionItem('@@CURRDATE', '当前日期 格式为yyyyMMdd'),
-                createCompletionItem('@@CURRDATETIMES', '当前时间日期 格式为yyyy-MM-dd HH:mm:ss'),
-                createCompletionItem('@@CURRDATES', '前日期 格式为yyyy-MM-dd')
-            ];
-            return completions;
-        }
-    }, '@' // 变量触发字符
-    );
-    context.subscriptions.push(commandCompletionProvider, variableCompletionProvider);
+    context.subscriptions.push(commandCompletionProvider);
 }
 exports.activate = activate;
 function createCompletionItem(label, detail) {
