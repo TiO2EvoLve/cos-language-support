@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-    const completionProvider = vscode.languages.registerCompletionItemProvider(
+    // 命令补全提供者
+    const commandCompletionProvider = vscode.languages.registerCompletionItemProvider(
         'cos',
         {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
@@ -9,9 +10,9 @@ export function activate(context: vscode.ExtensionContext) {
                     createCompletionItem('APDU.>', 'CPU卡发送指令函数'),
                     createCompletionItem('APDU0.>', 'CPU卡发送指令函数，但返回值去掉状态码'),
                     createCompletionItem('EXTERNAL.>', '外部认证函数'),
-                    createCompletionItem('APDUMAC.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
-                    createCompletionItem('APDUMAC_8.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
-                    createCompletionItem('APDUMAC_AJ.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
+                    createCompletionItem('APDUMAC.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
+                    createCompletionItem('APDUMAC_8.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
+                    createCompletionItem('APDUMAC_AJ.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
                     createCompletionItem('APDUMAC_AJGM.>', '调试用函数'),
                     createCompletionItem('APDUKEYE.>', '密文修改密钥的函数'),
                     createCompletionItem('APDUKEYEMAC.>', '密文修加MAC改密钥的函数'),
@@ -76,13 +77,13 @@ export function activate(context: vscode.ExtensionContext) {
                     createCompletionItem('M1LOADKEY.>', 'M1卡下载密钥'),
                     createCompletionItem('M1AUTHEN.>', 'M1卡认证密钥'),
                     createCompletionItem('M1WRITE.>', 'M1卡写扇区'),
-                     createCompletionItem('M1READ.>', 'M1卡读扇区'),
+                    createCompletionItem('M1READ.>', 'M1卡读扇区'),
                     createCompletionItem('M1AUTHENNO.>', 'M1卡认证密钥'),
                     createCompletionItem('DEC_FILE.>', '解析制卡文件'),
                     createCompletionItem('SAVEJPARAM.>', '将解析结果保存'),
                     createCompletionItem('CHECKSN.>', '尾数跳过函数'),
                     createCompletionItem('GETDATE.>', '获取系统当前的日期和时间'),
-                     createCompletionItem('DEF.>', '定义变量'),
+                    createCompletionItem('DEF.>', '定义变量'),
                     createCompletionItem('PURCHASE1.>', '山西大学返回坏卡的多次反复扣费模拟'),
                     createCompletionItem('SLEEP1.>', '程序线程休眠'),
                     createCompletionItem('GETNEWCAPE.>', '获取CPU卡制卡数据'),
@@ -118,10 +119,44 @@ export function activate(context: vscode.ExtensionContext) {
                 return completions;
             }
         },
-        '.' // 触发字符
+        '.' // 命令触发字符
     );
 
-    context.subscriptions.push(completionProvider);
+    // 变量补全提供者
+    const variableCompletionProvider = vscode.languages.registerCompletionItemProvider(
+        'cos',
+        {
+            provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+                const completions = [
+                    createCompletionItem('@@SN', '卡号'),
+                    createCompletionItem('@@UID', '16进制调整芯片号'),
+                    createCompletionItem('@@BUID', '16进制不调整芯片号'),
+                    createCompletionItem('@@DUID', '10进制调整芯片号'),
+                    createCompletionItem('@@DBUID', '10进制不调整芯片号'),
+                    createCompletionItem('@@ATS', 'CPU卡的复位信息'),
+                    createCompletionItem('@@SLPRINT', '打码值'),
+                    createCompletionItem('@@CITYCODE', '城市代码'),
+                    createCompletionItem('@@VENDER', '订单号'),
+                    createCompletionItem('@@CARDTYPE', '卡片类型'),
+                    createCompletionItem('@@CARDLOGO', '卡片标志'),
+                    createCompletionItem('@@SLNUM', '特殊算法号码'),
+                    createCompletionItem('@@APDURT', '指令返回值'),
+                    createCompletionItem('@@RZMA', '认证码'),
+                    createCompletionItem('@@SMATS', 'SM卡复位信息'),
+                    createCompletionItem('@@ERRUNLOCKPARAM', '解锁密钥'),
+                    createCompletionItem('@@CURRDATETIME', '当前日期时间，格式为yyyyMMddHHmmss'),
+                    createCompletionItem('@@CURRDATE', '当前日期 格式为yyyyMMdd'),
+                    createCompletionItem('@@CURRDATETIMES', '当前时间日期 格式为yyyy-MM-dd HH:mm:ss'),
+                    createCompletionItem('@@CURRDATES', '前日期 格式为yyyy-MM-dd')
+                ];
+
+                return completions;
+            }
+        },
+        '@' // 变量触发字符
+    );
+
+    context.subscriptions.push(commandCompletionProvider, variableCompletionProvider);
 }
 
 function createCompletionItem(label: string, detail: string): vscode.CompletionItem {

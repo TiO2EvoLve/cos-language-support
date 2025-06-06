@@ -3,15 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 function activate(context) {
-    const completionProvider = vscode.languages.registerCompletionItemProvider('cos', {
+    // 命令补全提供者
+    const commandCompletionProvider = vscode.languages.registerCompletionItemProvider('cos', {
         provideCompletionItems(document, position) {
             const completions = [
                 createCompletionItem('APDU.>', 'CPU卡发送指令函数'),
                 createCompletionItem('APDU0.>', 'CPU卡发送指令函数，但返回值去掉状态码'),
                 createCompletionItem('EXTERNAL.>', '外部认证函数'),
-                createCompletionItem('APDUMAC.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
-                createCompletionItem('APDUMAC_8.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
-                createCompletionItem('APDUMAC_AJ.>', '用“指令+校验码MAC”的方式给CPU卡发送指令'),
+                createCompletionItem('APDUMAC.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
+                createCompletionItem('APDUMAC_8.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
+                createCompletionItem('APDUMAC_AJ.>', '用"指令+校验码MAC"的方式给CPU卡发送指令'),
                 createCompletionItem('APDUMAC_AJGM.>', '调试用函数'),
                 createCompletionItem('APDUKEYE.>', '密文修改密钥的函数'),
                 createCompletionItem('APDUKEYEMAC.>', '密文修加MAC改密钥的函数'),
@@ -116,9 +117,38 @@ function activate(context) {
             ];
             return completions;
         }
-    }, '.' // 触发字符
+    }, '.' // 命令触发字符
     );
-    context.subscriptions.push(completionProvider);
+    // 变量补全提供者
+    const variableCompletionProvider = vscode.languages.registerCompletionItemProvider('cos', {
+        provideCompletionItems(document, position) {
+            const completions = [
+                createCompletionItem('@@SN', '卡号'),
+                createCompletionItem('@@UID', '16进制调整芯片号'),
+                createCompletionItem('@@BUID', '16进制不调整芯片号'),
+                createCompletionItem('@@DUID', '10进制调整芯片号'),
+                createCompletionItem('@@DBUID', '10进制不调整芯片号'),
+                createCompletionItem('@@ATS', 'CPU卡的复位信息'),
+                createCompletionItem('@@SLPRINT', '打码值'),
+                createCompletionItem('@@CITYCODE', '城市代码'),
+                createCompletionItem('@@VENDER', '订单号'),
+                createCompletionItem('@@CARDTYPE', '卡片类型'),
+                createCompletionItem('@@CARDLOGO', '卡片标志'),
+                createCompletionItem('@@SLNUM', '特殊算法号码'),
+                createCompletionItem('@@APDURT', '指令返回值'),
+                createCompletionItem('@@RZMA', '认证码'),
+                createCompletionItem('@@SMATS', 'SM卡复位信息'),
+                createCompletionItem('@@ERRUNLOCKPARAM', '解锁密钥'),
+                createCompletionItem('@@CURRDATETIME', '当前日期时间，格式为yyyyMMddHHmmss'),
+                createCompletionItem('@@CURRDATE', '当前日期 格式为yyyyMMdd'),
+                createCompletionItem('@@CURRDATETIMES', '当前时间日期 格式为yyyy-MM-dd HH:mm:ss'),
+                createCompletionItem('@@CURRDATES', '前日期 格式为yyyy-MM-dd')
+            ];
+            return completions;
+        }
+    }, '@' // 变量触发字符
+    );
+    context.subscriptions.push(commandCompletionProvider, variableCompletionProvider);
 }
 exports.activate = activate;
 function createCompletionItem(label, detail) {
